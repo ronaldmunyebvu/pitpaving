@@ -38,7 +38,9 @@ img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
 
-h1, h2, h3, h4 { font-family: var(--font-head); color: var(--heading); line-height: 1.2; font-weight: 700; }
+h1, h2, h3, h4 { font-family: var(--font-head); color: var(--heading); line-height: 1.2; font-weight: 700; overflow-wrap: break-word; }
+
+video { max-width: 100%; height: auto; }
 
 .container { width: min(1200px, 92%); margin-inline: auto; }
 
@@ -281,7 +283,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); color: var(--heading); line-heig
    Stats
    ========================================================= */
 .stats { background: var(--primary); color: var(--white); padding: 56px 0; }
-.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; text-align: center; }
 .stat i { font-size: 1.9rem; color: var(--accent); margin-bottom: 10px; }
 .stat strong { display: block; font-family: var(--font-head); font-size: 2.2rem; font-weight: 800; color: var(--white); }
 .stat span { color: #b9c4cc; font-size: 0.9rem; }
@@ -465,6 +467,30 @@ h1, h2, h3, h4 { font-family: var(--font-head); color: var(--heading); line-heig
 .cta-inner p { color: rgba(13, 26, 33, 0.75); font-size: 1.02rem; }
 
 /* =========================================================
+   Videos
+   ========================================================= */
+.videos { background: var(--white); }
+.videos-player { max-width: 900px; margin: 0 auto; }
+.videos-player video {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  display: block;
+}
+.videos-count {
+  text-align: center;
+  margin-top: 18px;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--heading);
+}
+.videos-count i { color: var(--accent-dark); margin-right: 8px; }
+
+/* =========================================================
    Footer
    ========================================================= */
 .site-footer { background: var(--primary-dark); color: #aeb9c2; padding-top: 70px; }
@@ -498,7 +524,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); color: var(--heading); line-heig
    ========================================================= */
 .whatsapp-float {
   position: fixed;
-  bottom: 24px; right: 24px;
+  bottom: calc(24px + env(safe-area-inset-bottom)); right: calc(24px + env(safe-area-inset-right));
   z-index: 999;
   width: 58px; height: 58px;
   display: grid; place-items: center;
@@ -593,7 +619,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); color: var(--heading); line-heig
   /* Background-attachment: fixed is buggy/janky on mobile — disable it */
   .areas { background-attachment: scroll; }
 
-  .whatsapp-float { bottom: 16px; right: 16px; }
+  .whatsapp-float { bottom: calc(16px + env(safe-area-inset-bottom)); right: calc(16px + env(safe-area-inset-right)); }
 }
 
 @media (max-width: 520px) {

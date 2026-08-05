@@ -142,6 +142,71 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  /* ---------- Video gallery (auto-playing) ---------- */
+  const videoFiles = [
+    'VID-20260505-WA0007.mp4',
+    'VID-20260506-WA0000.mp4',
+    'InShot_20260318_191018525.mp4',
+    'InShot_20260326_172147168.mp4',
+    'VID-20260522-WA0007.mp4'
+  ];
+
+  const videoPlayer = document.getElementById('videoPlayer');
+  const videoCount = document.getElementById('videoCount');
+  const videosNavLink = document.querySelector('a[href="#videos"]');
+  const videosSection = document.getElementById('videos');
+  let videoIndex = 0;
+
+  function loadVideo(index) {
+    videoIndex = (index + videoFiles.length) % videoFiles.length;
+    videoPlayer.src = videoFiles[videoIndex];
+    videoPlayer.load();
+    if (videoCount) {
+      videoCount.innerHTML = '<i class="fa-solid fa-circle-play"></i>Video ' + (videoIndex + 1) + ' of ' + videoFiles.length;
+    }
+  }
+
+  function playVideo(index) {
+    loadVideo(index);
+    const attemptPlay = function () {
+      const promise = videoPlayer.play();
+      if (promise && promise.catch) {
+        promise.catch(function () {
+          videoPlayer.muted = true;
+          videoPlayer.play();
+        });
+      }
+    };
+    attemptPlay();
+  }
+
+  if (videoPlayer && videoFiles.length) {
+    loadVideo(0);
+
+    videoPlayer.addEventListener('ended', function () {
+      playVideo(videoIndex + 1);
+    });
+
+    /* Pause the video when the Videos section is not on screen */
+    const videosObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) {
+          videoPlayer.pause();
+        }
+      });
+    }, { threshold: 0.15 });
+
+    if (videosSection) {
+      videosObserver.observe(videosSection);
+    }
+  }
+
+  if (videosNavLink) {
+    videosNavLink.addEventListener('click', function () {
+      playVideo(0);
+    });
+  }
+
   /* ---------- Smooth scroll offset for anchored links ---------- */
   document.querySelectorAll('a[href^="#"]').forEach(function (link) {
     link.addEventListener('click', function (e) {
