@@ -144,10 +144,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ---------- Video gallery (auto-playing) ---------- */
   const videoFiles = [
+    'vidz1.mp4',
+    'vidz2.mp4',
     'VID-20260505-WA0007.mp4',
-    'VID-20260506-WA0000.mp4',
-    'InShot_20260318_191018525.mp4',
-    'InShot_20260326_172147168.mp4',
     'VID-20260522-WA0007.mp4'
   ];
 
